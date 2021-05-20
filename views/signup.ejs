@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/signup.css" />
+    <title>Survey</title>
+  </head>
+  <body>
+          <form method="POST" action="/user/signup" class="signup">
+            <h1>Register</h1>
+            <br/>
+                    
+            <div class="signup__field">
+              <input class="signup__input" type="text" name="name" id="name" required />
+              <label class="signup__label" for="name">Name</label>
+            </div>
+
+            <div class="signup__field">
+              <input class="signup__input" type="text" name="age" id="phone" required />
+              <label class="signup__label" for="email">Age</label>
+            </div>
+
+            <div class="signup__field">
+              <input class="signup__input" type="email" name="email" id="email" required />
+              <label class="signup__label" for="email">Email</label>
+            </div>
+
+
+            <div class="signup__field">
+              <input class="signup__input" type="password" name="password" id="password" required />
+              <label class="signup__label" for="password">Password</label>
+            </div>
+          
+            <input type="submit" value="Signup">
+
+            <br/>
+            <h2>Already registered? <span> <a style="color: #7686f9; text-decoration: none;" href="/">Login</a> </span></h2>
+
+          </form>
+  </body>
+</html>
