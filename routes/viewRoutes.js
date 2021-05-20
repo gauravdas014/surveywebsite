@@ -15,11 +15,12 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
-router.get('/user/dashboard', (req, res) => {
-  res.render('userDashboard');
+router.get('/user/dashboard', authController.isLoggedIn, (req, res) => {
+  const user = req.user;
+  res.render('userDashboard', { user });
 });
 
-router.get('/admin/dashboard', (req, res) => {
+router.get('/admin/dashboard', authController.isLoggedIn, (req, res) => {
   res.render('adminDashboard');
 });
 

@@ -5,6 +5,9 @@ const Dbms = require('../models/dbmsModel');
 const Ds = require('../models/dsModel');
 const Os = require('../models/osModel');
 const mongoose = require('mongoose');
+const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 const { subjectList } = require('../utils/subjects');
 
 exports.getAllQuestions = async (req, res) => {
@@ -38,11 +41,19 @@ exports.getAllQuestions = async (req, res) => {
 
 exports.addQuestion = async (req, res) => {
   try {
+    const decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+    // 2) Check if user exists
+    const currentUser = await User.findById(decoded.id);
+
     const subj = req.body.subject;
     const Model = subjectList[subj];
     const newQuestion = await mongoose.model(Model).create({
       question: req.body.question,
       answer: req.body.answer,
+      user: currentUser._id,
     });
     // return res.status(201).json({
     //   status: 'success',

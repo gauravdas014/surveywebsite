@@ -1,5 +1,6 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
+const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 
 const signToken = (id) => {
@@ -51,7 +52,6 @@ exports.signup = async (req, res) => {
     });
     res.redirect('/login');
   } catch (err) {
-    console.log(err);
     res.status(400).json({
       status: 'fail',
       message: err,
@@ -62,8 +62,6 @@ exports.signup = async (req, res) => {
 exports.signin = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    console.log(user);
-    console.log(req.body.password);
     if (
       !user ||
       !(await user.correctPassword(req.body.password, user.password))
@@ -72,7 +70,6 @@ exports.signin = async (req, res) => {
     }
     createSendToken(user, req, res);
   } catch (err) {
-    console.log(err);
     res.status(400).json({
       status: 'fail',
       message: err,
@@ -80,15 +77,27 @@ exports.signin = async (req, res) => {
   }
 };
 
-exports.isAuthenticated = async (req, res, next) => {
-  try {
-    //
-  } catch (err) {
-    res.status(400).json({
-      status: 'fail',
-      message: err,
-    });
+exports.isLoggedIn = async (req, res, next) => {
+  if (req.cookies.jwt) {
+    try {
+      // 1) verify token
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
+      // 2) Check if user exists
+      const currentUser = await User.findById(decoded.id);
+      if (!currentUser) {
+        return res.redirect('/');
+      }
+      req.user = currentUser;
+      // THERE IS A LOGGED IN USER
+      return next();
+    } catch (err) {
+      return res.redirect('/login');
+    }
   }
+  res.redirect('/');
 };
 
 exports.signout = async (req, res) => {

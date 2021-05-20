@@ -8,6 +8,10 @@ const osSchema = new mongoose.Schema(
     answer: {
       type: String,
     },
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+    },
     isVerified: {
       type: Boolean,
       default: false,
