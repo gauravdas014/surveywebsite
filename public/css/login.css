@@ -129,5 +129,6 @@ input[type='submit']:hover {
 @media only screen and (max-width: 600px) {
   .signup {
     width: 85%;
+    padding: 30px 30px;
   }
 }
