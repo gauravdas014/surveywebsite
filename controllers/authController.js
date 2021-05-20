@@ -80,18 +80,15 @@ exports.signin = async (req, res) => {
 exports.isLoggedIn = async (req, res, next) => {
   if (req.cookies.jwt) {
     try {
-      // 1) verify token
       const decoded = await promisify(jwt.verify)(
         req.cookies.jwt,
         process.env.JWT_SECRET
       );
-      // 2) Check if user exists
       const currentUser = await User.findById(decoded.id);
       if (!currentUser) {
         return res.redirect('/');
       }
       req.user = currentUser;
-      // THERE IS A LOGGED IN USER
       return next();
     } catch (err) {
       return res.redirect('/login');

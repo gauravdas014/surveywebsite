@@ -8,37 +8,36 @@ const mongoose = require('mongoose');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
-const { subjectList, subjectFullForm } = require('../utils/subjects');
-const e = require('express');
+const { subjectList } = require('../utils/subjects');
 
-exports.getAllQuestions = async (req, res) => {
-  try {
-    const algoQs = await Algo.find();
-    const CdQs = await Cd.find();
-    const CnQs = await Cn.find();
-    const DbmsQs = await Dbms.find();
-    const DsQs = await Ds.find();
-    const OsQs = await Os.find();
+// exports.getAllQuestions = async (req, res) => {
+//   try {
+//     const algoQs = await Algo.find();
+//     const CdQs = await Cd.find();
+//     const CnQs = await Cn.find();
+//     const DbmsQs = await Dbms.find();
+//     const DsQs = await Ds.find();
+//     const OsQs = await Os.find();
 
-    const allQuestions = {
-      algoQs,
-      CdQs,
-      CnQs,
-      DbmsQs,
-      DsQs,
-      OsQs,
-    };
-    res.status(200).json({
-      status: 'success',
-      questions: allQuestions,
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: 'fail',
-      message: err,
-    });
-  }
-};
+//     const allQuestions = {
+//       algoQs,
+//       CdQs,
+//       CnQs,
+//       DbmsQs,
+//       DsQs,
+//       OsQs,
+//     };
+//     res.status(200).json({
+//       status: 'success',
+//       questions: allQuestions,
+//     });
+//   } catch (err) {
+//     res.status(400).json({
+//       status: 'fail',
+//       message: err,
+//     });
+//   }
+// };
 
 exports.getQuestionBySubject = async (req, res) => {
   try {
@@ -48,7 +47,6 @@ exports.getQuestionBySubject = async (req, res) => {
     res.render('adminAllQuestions', {
       questions,
       subject: subj,
-      subjectFullForm,
     });
   } catch (err) {
     res.status(400).json({
@@ -64,12 +62,10 @@ exports.addQuestion = async (req, res) => {
       req.cookies.jwt,
       process.env.JWT_SECRET
     );
-    // 2) Check if user exists
     const currentUser = await User.findById(decoded.id);
-
     const subj = req.body.subject;
     const Model = subjectList[subj];
-    const newQuestion = await mongoose.model(Model).create({
+    await mongoose.model(Model).create({
       question: req.body.question,
       answer: req.body.answer,
       user: currentUser._id,
@@ -111,7 +107,6 @@ exports.updateQuestion = async (req, res) => {
     res.render('adminAllQuestions', {
       questions,
       subject: subj,
-      subjectFullForm,
     });
   } catch (err) {
     res.status(400).json({
@@ -139,7 +134,6 @@ exports.changeVerificationStatus = async (req, res) => {
     res.render('adminAllQuestions', {
       questions,
       subject: subj,
-      subjectFullForm,
     });
   } catch (err) {
     console.log(err);
@@ -167,7 +161,6 @@ exports.getAllQuestionByUser = async (req, res) => {
       DsQs,
       OsQs,
     };
-    console.log(allQuestions);
     res.render('allQuestionsByUser', { allQuestions });
   } catch (err) {
     res.status(400).json({
