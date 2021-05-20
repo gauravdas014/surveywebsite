@@ -60,7 +60,7 @@
 </style>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/admin/dashboard">Home</a>
+        <a class="navbar-brand" href="#">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -72,23 +72,17 @@
         </div>
       </nav> 
 
-        <h1 class="welcome-text">Welcome admin </h1>
-
       <div class="main-section">
-        <form method="GET" action="/question/all">
+        <form method="POST" action="/question/edit/<%=subject%>/<%= question._id %>">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Question</label>
+                <textarea class="form-control" name="question" id="exampleFormControlTextarea1" rows="3"><%= question.question%></textarea>
+              </div>
             <div class="form-group">
-              <label for="exampleFormControlSelect1">Select Subject</label>
-              <select name="subject" class="form-control" id="exampleFormControlSelect1">
-                <option value="#">Select</option>
-                <option value="algo">Algorithms</option>
-                <option value="cd">Compiler Design</option>
-                <option value="cn">Computer Networks</option>
-                <option value="dbms">DBMS</option>
-                <option value="ds">Data Structure</option>
-                <option value="os">Operating System</option>
-              </select>
+              <label for="exampleFormControlTextarea1">Answer</label>
+              <textarea class="form-control" name="answer" id="exampleFormControlTextarea1" rows="3"><%= question.answer%></textarea>
             </div>
-            <input class="submit-question-btn" type="submit" value="See All Questions">
+            <input class="submit-question-btn" type="submit" value="Update Question">
           </form>
       </div>
  

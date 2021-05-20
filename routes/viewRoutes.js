@@ -20,6 +20,10 @@ router.get('/user/dashboard', authController.isLoggedIn, (req, res) => {
   res.render('userDashboard', { user });
 });
 
+// router.get('/question/edit', authController.isLoggedIn, (req, res) => {
+//   res.render('adminEditQuestion');
+// });
+
 router.get('/admin/dashboard', authController.isLoggedIn, (req, res) => {
   res.render('adminDashboard');
 });

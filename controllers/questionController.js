@@ -8,7 +8,8 @@ const mongoose = require('mongoose');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
-const { subjectList } = require('../utils/subjects');
+const { subjectList, subjectFullForm } = require('../utils/subjects');
+const e = require('express');
 
 exports.getAllQuestions = async (req, res) => {
   try {
@@ -30,6 +31,24 @@ exports.getAllQuestions = async (req, res) => {
     res.status(200).json({
       status: 'success',
       questions: allQuestions,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
+exports.getQuestionBySubject = async (req, res) => {
+  try {
+    const subj = req.query.subject;
+    const Model = subjectList[subj];
+    const questions = await mongoose.model(Model).find();
+    res.render('adminAllQuestions', {
+      questions,
+      subject: subj,
+      subjectFullForm,
     });
   } catch (err) {
     res.status(400).json({
@@ -69,8 +88,15 @@ exports.addQuestion = async (req, res) => {
   }
 };
 
-exports.verifyQuestion = async (req, res) => {
+exports.getUpdateQuestion = async (req, res) => {
   try {
+    const subj = req.params.subject;
+    const Model = subjectList[subj];
+    const question = await mongoose
+      .model(Model)
+      .findById(req.params.questionId);
+    console.log(question);
+    res.render('adminEditQuestion', { question, subject: subj });
   } catch (err) {
     res.status(400).json({
       status: 'fail',
@@ -81,8 +107,48 @@ exports.verifyQuestion = async (req, res) => {
 
 exports.updateQuestion = async (req, res) => {
   try {
+    const subj = req.params.subject;
+    const Model = subjectList[subj];
+    await mongoose
+      .model(Model)
+      .findByIdAndUpdate(req.params.questionId, req.body);
+    const questions = await mongoose.model(Model).find();
+    res.render('adminAllQuestions', {
+      questions,
+      subject: subj,
+      subjectFullForm,
+    });
   } catch (err) {
-    res.stauts(400).json({
+    res.status(400).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
+exports.changeVerificationStatus = async (req, res) => {
+  try {
+    const subj = req.params.subject;
+    const Model = subjectList[subj];
+    const questions = await mongoose.model(Model).find();
+    const question = await mongoose
+      .model(Model)
+      .findById(req.params.questionId);
+    if (question.isVerified) {
+      question.isVerified = false;
+      await question.save();
+    } else {
+      question.isVerified = true;
+      await question.save();
+    }
+    res.render('adminAllQuestions', {
+      questions,
+      subject: subj,
+      subjectFullForm,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
       status: 'fail',
       message: err,
     });
