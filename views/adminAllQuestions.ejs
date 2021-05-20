@@ -131,11 +131,9 @@
                           <% } else{ %>  
                         <form method="POST" action="/question/verify/<%= subject %>/<%=questions[i]._id%>">
                         <span style="color: red;">&#10060; </span>
-                        &nbsp; &nbsp;   &nbsp; <button type="submit" class="btn btn-primary">Mark Verified</button> 
+                        &nbsp; &nbsp;   &nbsp; <button type="submit" formmethod="post" class="btn btn-primary">Mark Verified</button> 
                          </form>
-
                          <% } %>
-
                     </td>
                      <td>
                          <a href="/question/edit/<%= subject %>/<%=questions[i]._id%>">Edit</a>

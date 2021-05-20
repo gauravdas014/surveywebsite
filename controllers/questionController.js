@@ -120,7 +120,6 @@ exports.changeVerificationStatus = async (req, res) => {
   try {
     const subj = req.params.subject;
     const Model = subjectList[subj];
-    const questions = await mongoose.model(Model).find();
     const question = await mongoose
       .model(Model)
       .findById(req.params.questionId);
@@ -131,6 +130,7 @@ exports.changeVerificationStatus = async (req, res) => {
       question.isVerified = true;
       await question.save();
     }
+    const questions = await mongoose.model(Model).find();
     res.render('adminAllQuestions', {
       questions,
       subject: subj,
