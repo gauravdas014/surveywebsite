@@ -74,10 +74,6 @@ exports.addQuestion = async (req, res) => {
       answer: req.body.answer,
       user: currentUser._id,
     });
-    // return res.status(201).json({
-    //   status: 'success',
-    //   question: newQuestion,
-    // });
     res.render('userQuestionSubmitted');
   } catch (err) {
     console.log(err);
@@ -95,7 +91,6 @@ exports.getUpdateQuestion = async (req, res) => {
     const question = await mongoose
       .model(Model)
       .findById(req.params.questionId);
-    console.log(question);
     res.render('adminEditQuestion', { question, subject: subj });
   } catch (err) {
     res.status(400).json({
@@ -148,6 +143,33 @@ exports.changeVerificationStatus = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    res.status(400).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
+exports.getAllQuestionByUser = async (req, res) => {
+  try {
+    const algoQs = await Algo.find({ user: req.params.userId });
+    const CdQs = await Cd.find({ user: req.params.userId });
+    const CnQs = await Cn.find({ user: req.params.userId });
+    const DbmsQs = await Dbms.find({ user: req.params.userId });
+    const DsQs = await Ds.find({ user: req.params.userId });
+    const OsQs = await Os.find({ user: req.params.userId });
+
+    const allQuestions = {
+      algoQs,
+      CdQs,
+      CnQs,
+      DbmsQs,
+      DsQs,
+      OsQs,
+    };
+    console.log(allQuestions);
+    res.render('allQuestionsByUser', { allQuestions });
+  } catch (err) {
     res.status(400).json({
       status: 'fail',
       message: err,

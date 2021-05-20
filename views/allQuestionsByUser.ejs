@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Survey</title>
+</head>
+<style>
+    body {
+        overflow-x: hidden;
+    }
+    .welcome-text {
+        text-align: center;
+        margin-top: 50px;
+        padding: 0 20px;
+    }
+
+    .welcome-text-2 {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .main-section{
+        width: 600px;
+        margin: 50px auto;
+        padding: 50px;
+    }
+
+    .submit-question-btn{
+        background-color: #0275d8;
+        color: white;
+        font-size: 18px;
+        border: none;
+        padding: 8px 20px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+    td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    }
+
+    tr:nth-child(even) {
+    background-color: #dddddd;
+    }
+
+    .main {
+        padding: 50px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .main-section{
+        width: 90%;
+        margin: 50px auto;
+        padding: 40px;
+    }
+
+    .welcome-text {
+        text-align: center;
+        margin-top: 30px;
+        padding: 0 20px;
+    }
+
+    .welcome-text-2 {
+        text-align: center;
+        margin-top: 30px;
+    }
+}
+
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/user/dashboard">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+          </ul>
+          <button type="button" onclick="location.href='/user/signout';" class="btn btn-warning">Sign Out</button>
+        </div>
+      </nav> 
+
+      <div class="main">
+        <br/>
+        <h2>Algorithms:</h2>
+
+        <% if(allQuestions.algoQs.length !== 0){ %>
+            <table>
+                <tr>
+                  <th>#</th>
+                  <th>Question</th>
+                  <th>Answer</th>
+                  <th>Verified</th>
+                </tr>
+                      <% for(let i=0; i < allQuestions.algoQs.length; i++) { %>
+                         <tr>
+                           <td><%= i+1 %></td>
+                           <td><%= allQuestions.algoQs[i].question %></td>
+                           <td><%= allQuestions.algoQs[i].answer %></td>
+                           <td> 
+                              <% if(allQuestions.algoQs[i].isVerified){ %>
+                                  <span style="color: green;">&#9989;</span> &nbsp;
+                                  &nbsp; &nbsp;
+                                <% } else{ %>  
+                                  <span style="color: red;">&#10060; </span>
+                                  &nbsp; &nbsp;   &nbsp;
+                               <% } %>
+                          </td>
+                           <td>
+                           </td>
+                         </tr>
+                      <% } %>
+              </table>
+      
+              <br/>
+              <br/>
+              <br/>
+          <% } else { %>  
+         <% } %>
+
+
+        <h2>Compiler Design:</h2>
+
+        <% if(allQuestions.CdQs.length !== 0){ %>
+            <table>
+                <tr>
+                  <th>#</th>
+                  <th>Question</th>
+                  <th>Answer</th>
+                  <th>Verified</th>
+                </tr>
+                      <% for(let i=0; i < allQuestions.CdQs.length; i++) { %>
+                         <tr>
+                           <td><%= i+1 %></td>
+                           <td><%= allQuestions.CdQs[i].question %></td>
+                           <td><%= allQuestions.CdQs[i].answer %></td>
+                           <td> 
+                              <% if(allQuestions.CdQs[i].isVerified){ %>
+                                  <span style="color: green;">&#9989;</span> &nbsp;
+                                  &nbsp; &nbsp;
+                                <% } else{ %>  
+                                  <span style="color: red;">&#10060; </span>
+                                  &nbsp; &nbsp;   &nbsp;
+                               <% } %>
+                          </td>
+                           <td>
+                           </td>
+                         </tr>
+                      <% } %>
+              </table>
+          <% } else{ %>  
+         <% } %>
+
+
+
+        <br/>
+        <br/>
+        <br/>
+
+        <h2>Computer Networks:</h2>
+
+        <% if(allQuestions.CnQs.length !== 0){ %>
+            <table>
+                <tr>
+                  <th>#</th>
+                  <th>Question</th>
+                  <th>Answer</th>
+                  <th>Verified</th>
+                </tr>
+                      <% for(let i=0; i < allQuestions.CnQs.length; i++) { %>
+                         <tr>
+                           <td><%= i+1 %></td>
+                           <td><%= allQuestions.CnQs[i].question %></td>
+                           <td><%= allQuestions.CnQs[i].answer %></td>
+                           <td> 
+                              <% if(allQuestions.CnQs[i].isVerified){ %>
+                                  <span style="color: green;">&#9989;</span> &nbsp;
+                                  &nbsp; &nbsp;
+                                <% } else{ %>  
+                                  <span style="color: red;">&#10060; </span>
+                                  &nbsp; &nbsp;   &nbsp;
+                               <% } %>
+                          </td>
+                           <td>
+                           </td>
+                         </tr>
+                      <% } %>
+              </table>
+          <% } else{ %>  
+            <h5>No questions posted yet</h5>
+         <% } %>
+
+
+
+        <br/>
+        <br/>
+        <br/>
+
+        <h2>DBMS:</h2>
+
+        <% if(allQuestions.DbmsQs.length !== 0){ %>
+            
+        <table>
+            <tr>
+              <th>#</th>
+              <th>Question</th>
+              <th>Answer</th>
+              <th>Verified</th>
+            </tr>
+                  <% for(let i=0; i < allQuestions.DbmsQs.length; i++) { %>
+                     <tr>
+                       <td><%= i+1 %></td>
+                       <td><%= allQuestions.DbmsQs[i].question %></td>
+                       <td><%= allQuestions.DbmsQs[i].answer %></td>
+                       <td> 
+                          <% if(allQuestions.DbmsQs[i].isVerified){ %>
+                              <span style="color: green;">&#9989;</span> &nbsp;
+                              &nbsp; &nbsp;
+                            <% } else{ %>  
+                              <span style="color: red;">&#10060; </span>
+                              &nbsp; &nbsp;   &nbsp;
+                           <% } %>
+                      </td>
+                       <td>
+                       </td>
+                     </tr>
+                  <% } %>
+          </table>
+          <% } else{ %>  
+            <h5>No questions posted yet</h5>
+         <% } %>
+
+
+        <br/>
+        <br/>
+        <br/>
+
+        <h2>Data Structures:</h2>
+
+        <% if(allQuestions.DsQs.length !== 0){ %>
+            
+        <table>
+            <tr>
+              <th>#</th>
+              <th>Question</th>
+              <th>Answer</th>
+              <th>Verified</th>
+            </tr>
+                  <% for(let i=0; i < allQuestions.DsQs.length; i++) { %>
+                     <tr>
+                       <td><%= i+1 %></td>
+                       <td><%= allQuestions.DsQs[i].question %></td>
+                       <td><%= allQuestions.DsQs[i].answer %></td>
+                       <td> 
+                          <% if(allQuestions.DsQs[i].isVerified){ %>
+                              <span style="color: green;">&#9989;</span> &nbsp;
+                              &nbsp; &nbsp;
+                            <% } else{ %>  
+                              <span style="color: red;">&#10060; </span>
+                              &nbsp; &nbsp;   &nbsp;
+                           <% } %>
+                      </td>
+                       <td>
+                       </td>
+                     </tr>
+                  <% } %>
+          </table>
+          <% } else{ %>  
+            <h5>No questions posted yet</h5>
+         <% } %>
+
+
+        <br/>
+        <br/>
+        <br/>
+
+        <h2>Operating System:</h2>
+
+        <% if(allQuestions.OsQs.length !== 0){ %>
+            <table>
+                <tr>
+                  <th>#</th>
+                  <th>Question</th>
+                  <th>Answer</th>
+                  <th>Verified</th>
+                </tr>
+                      <% for(let i=0; i < allQuestions.OsQs.length; i++) { %>
+                         <tr>
+                           <td><%= i+1 %></td>
+                           <td><%= allQuestions.OsQs[i].question %></td>
+                           <td><%= allQuestions.OsQs[i].answer %></td>
+                           <td> 
+                              <% if(allQuestions.OsQs[i].isVerified){ %>
+                                  <span style="color: green;">&#9989;</span> &nbsp;
+                                  &nbsp; &nbsp;
+                                <% } else{ %>  
+                                  <span style="color: red;">&#10060; </span>
+                                  &nbsp; &nbsp;   &nbsp;
+                               <% } %>
+                          </td>
+                           <td>
+                           </td>
+                         </tr>
+                      <% } %>
+              </table>
+          <% } else{ %>  
+            <h5>No questions posted yet</h5>
+         <% } %>
+
+
+
+        <br/>
+        <br/>
+        <br/>
+   
+      </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</html>
