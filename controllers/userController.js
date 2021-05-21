@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const bcrypt = require("bcryptjs")
 
 exports.updateProfile = async (req, res) => {
   try {
@@ -7,6 +8,7 @@ exports.updateProfile = async (req, res) => {
       runValidators: true,
     });
     req.user = user;
+    req.flash("message", "Profile details updated successfully")
     res.redirect('/user/dashboard');
   } catch (err) {
     res.status(400).json({
@@ -25,8 +27,10 @@ exports.updatePassword = async (req, res) => {
     user.password = await bcrypt.hash(req.body.newPassword, 12);
     await user.save();
     req.user = user;
+    req.flash("message", "Password Updated successfully")
     res.redirect('/user/dashboard');
   } catch (err) {
+    console.log(err)
     res.status(400).json({
       status: 'fail',
       message: err,

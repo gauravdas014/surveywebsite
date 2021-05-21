@@ -17,6 +17,7 @@ const createSendToken = async (user, req, res) => {
     ),
   });
   if (user.role === 'user') {
+    req.flash('message', 'Logged in sucessfully')
     res.redirect('/user/dashboard');
   } else {
     res.redirect('/admin/dashboard');
@@ -66,11 +67,12 @@ exports.signin = async (req, res) => {
       !user ||
       !(await user.correctPassword(req.body.password, user.password))
     ) {
-      res.send('Username or password is incorrect');
+      req.flash("message", "Wrong username or password")
+      return res.render('index', {flashMessages: { message: req.flash('message') }});
     }
     createSendToken(user, req, res);
   } catch (err) {
-    res.status(400).json({
+    return res.status(400).json({
       status: 'fail',
       message: err,
     });
@@ -100,6 +102,7 @@ exports.isLoggedIn = async (req, res, next) => {
 exports.signout = async (req, res) => {
   try {
     res.clearCookie('jwt');
+    req.flash("message", "");
     res.redirect('/');
   } catch (err) {
     res.status(400).json({

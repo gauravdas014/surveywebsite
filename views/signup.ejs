@@ -1,67 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/signup.css" />
-    <title>Survey</title>
-  </head>
-  <body>
-          <form method="POST" action="/user/signup" class="signup">
-            <h1>Register</h1>
-            <br/>
-                    
-            <div class="signup__field">
-              <input class="signup__input" type="text" name="name" id="name" required />
-              <label class="signup__label" for="name">Name</label>
-            </div>
 
-            <div class="signup__field">
-              <input class="signup__input" type="text" name="age" id="phone" required />
-              <label class="signup__label" for="email">Age</label>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/signup.css" />
+  <title>Survey</title>
+</head>
 
-            <div class="signup__field">
-              <input class="signup__input" type="email" name="email" id="email" required />
-              <label class="signup__label" for="email">Email</label>
-            </div>
+<body>
+  <form method="POST" action="/user/signup" class="signup">
+    <h1>Register</h1>
+    <br />
+
+    <div class="signup__field">
+      <input class="signup__input" type="text" name="name" id="name" required />
+      <label class="signup__label" for="name">Name</label>
+    </div>
+
+    <div class="signup__field">
+      <input class="signup__input" type="text" name="age" id="phone" required />
+      <label class="signup__label" for="email">Age</label>
+    </div>
+
+    <div class="signup__field">
+      <input class="signup__input" type="email" name="email" id="email" required />
+      <label class="signup__label" for="email">Email</label>
+    </div>
 
 
-            <div class="signup__field">
-              <input class="signup__input" type="password" name="password" id="password" onchange='check_pass();' required />
-              <label class="signup__label" for="password">Password</label>
-            </div>
+    <div class="signup__field">
+      <input class="signup__input" type="password" name="password" id="password" required />
+      <label class="signup__label" for="password">Password</label>
+    </div>
 
-            <div class="signup__field">
-              <input class="signup__input" type="password" name="confirm_password" id="confirm_password" onchange='check_pass();' required />
-              <label class="signup__label" for="password">Confirm Password</label>
-            </div>
+    <div class="signup__field">
+      <input class="signup__input" type="password" name="passwordConfirm" id="confirm_password" required />
+      <label class="signup__label" for="password">Confirm Password</label>
+    </div>
 
-            <span id="pm-warn" style="margin-top: -20px; color: red; ">Password and confirm password should match</span>
-            <br/>
-          
-            <input type="submit" name="submit" id="submit" value="Signup" disabled>
+    <!-- <span id="pm-warn" style="margin-top: -20px; color: red; ">Password and confirm password should match</span> -->
 
-            <br/>
-            <h2>Already registered? <span> <a style="color: #7686f9; text-decoration: none;" href="/">Login</a> </span></h2>
+    <input type="submit" name="submit" id="submit" value="Signup">
 
-          </form>
-  </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <script>
-function check_pass() {
-        if (document.getElementById('password').value ===
-                document.getElementById('confirm_password').value) {
-            document.getElementById('submit').disabled = false;
-            document.getElementById('pm-warn').style.display = "none";
-        } else {
-            document.getElementById('submit').disabled = true;
-            document.getElementById('pm-warn').style.display = "block";
-        }
-       }
-  </script>
-  <script src="/js/signup.js"></script>
+    <br />
+    <h2>Already registered? <span> <a style="color: #7686f9; text-decoration: none;" href="/">Login</a> </span></h2>
+
+  </form>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="/js/signup.js"></script>
+
 </html>

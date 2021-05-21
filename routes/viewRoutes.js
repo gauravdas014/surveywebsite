@@ -3,7 +3,7 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {flashMessages: { message: req.flash('message') }});
 });
 
 router.get('/login', (req, res) => {
@@ -16,7 +16,7 @@ router.get('/signup', (req, res) => {
 
 router.get('/user/dashboard', authController.isLoggedIn, (req, res) => {
   const user = req.user;
-  res.render('userDashboard', { user });
+  res.render('userDashboard', { user , flashMessages: { message: req.flash('message') }, });
 });
 
 router.get('/admin/dashboard', authController.isLoggedIn, (req, res) => {
