@@ -25,7 +25,7 @@
     .main-section{
         width: 600px;
         margin: 50px auto;
-        padding: 50px;
+        padding: 0 50px;
     }
 
     .submit-question-btn{
@@ -36,12 +36,6 @@
         padding: 8px 20px;
         margin-top: 10px;
         border-radius: 5px;
-    }
-
-    .flash-message {
-      text-align: center;
-      margin: 20px 10px;
-      color: green;
     }
 
     @media only screen and (max-width: 600px) {
@@ -74,38 +68,53 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
           </ul>
-          <button type="button" onclick="location.href='/user/profile';" class="btn btn-warning">User Profile</button> &nbsp; &nbsp; &nbsp;
           <button type="button" onclick="location.href='/question/all/<%= user._id %>';" class="btn btn-warning">See All Posted Questions</button> &nbsp; &nbsp; &nbsp;
           <button type="button" onclick="location.href='/user/signout';" class="btn btn-warning">Sign Out</button>
         </div>
       </nav> 
 
-        <h1 class="welcome-text">Welcome <%= user.name %>! </h1>
-        <h3 class="welcome-text-2">Add a new question below</h3>
+        <h1 class="welcome-text">Hi <%= user.name %>! </h1>
+        <h3 class="welcome-text-2">You can update your profile here</h3>
 
       <div class="main-section">
-        <form method="POST" action="/question">
-            <div class="form-group">
-              <label for="exampleFormControlSelect1">Select Subject</label>
-              <select name="subject" class="form-control" id="exampleFormControlSelect1">
-                <option value="algo">Algorithms</option>
-                <option value="cd">Compiler Design</option>
-                <option value="cn">Computer Networks</option>
-                <option value="dbms">DBMS</option>
-                <option value="ds">Data Structure</option>
-                <option value="os">Operating System</option>
-              </select>
-            </div>
+        <form method="POST" action="/user/profile/<%= user._id%>">
               <div class="form-group">
-                <label for="exampleFormControlTextarea1">Enter Question</label>
-                <textarea required class="form-control" name="question" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="exampleFormControlTextarea1">Name</label>
+                <input class="form-control" value="<%= user.name %>" name="name" id="exampleFormControlTextarea1" rows="3"/>
               </div>
-            <div class="form-group">
-              <label for="exampleFormControlTextarea1">Enter Answer</label>
-              <textarea class="form-control" name="answer" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <input class="submit-question-btn" type="submit" value="Submit Question">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Age</label>
+                <input class="form-control" name="age" value="<%= user.age %>"  id="exampleFormControlTextarea1" rows="3"/>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Email</label>
+                <input class="form-control" type="email" value="<%= user.email %>"  name="email" id="exampleFormControlTextarea1" rows="3"/>
+              </div>
+            <input class="submit-question-btn" type="submit" value="Update Details">
           </form>
+
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+
+          <h2>Update Password</h2>
+          <br/>
+          <form method="POST" action="/question">
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Previous Password</label>
+              <input required class="form-control" name="password" id="exampleFormControlTextarea1" rows="3"/>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">New Password</label>
+              <input required class="form-control" name="newPassword" id="exampleFormControlTextarea1" rows="3"/>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Confirm Password</label>
+              <input required class="form-control" name="question" id="exampleFormControlTextarea1" rows="3"/>
+            </div>
+          <input class="submit-question-btn" type="submit" value="Update Password">
+        </form>
       </div>
  
 </body>

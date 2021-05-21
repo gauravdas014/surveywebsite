@@ -20,7 +20,13 @@ router.get('/user/dashboard', authController.isLoggedIn, (req, res) => {
 });
 
 router.get('/admin/dashboard', authController.isLoggedIn, (req, res) => {
-  res.render('adminDashboard');
+  const user = req.user;
+  res.render('adminDashboard', { user });
+});
+
+router.get('/user/profile', authController.isLoggedIn, (req, res) => {
+  const user = req.user;
+  res.render('userUpdateProfile', { user });
 });
 
 module.exports = router;

@@ -72,14 +72,13 @@
         </div>
       </nav> 
 
-        <h1 class="welcome-text">Welcome admin </h1>
+        <h1 class="welcome-text">Welcome <%= user.name %> </h1>
 
       <div class="main-section">
         <form method="GET" action="/question/all">
             <div class="form-group">
               <label for="exampleFormControlSelect1">Select Subject</label>
               <select name="subject" class="form-control" id="exampleFormControlSelect1">
-                <option value="#">Select</option>
                 <option value="algo">Algorithms</option>
                 <option value="cd">Compiler Design</option>
                 <option value="cn">Computer Networks</option>
