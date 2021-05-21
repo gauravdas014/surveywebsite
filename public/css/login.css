@@ -90,10 +90,10 @@ h2 span {
 
 /*  Label */
 .signup__label {
-  color: #bdbdbd;
+  color: black;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-150%);
   left: 2px;
   font-size: 1.2rem;
   transition: all 0.3s ease;
