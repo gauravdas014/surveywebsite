@@ -197,35 +197,22 @@
               <th>Edit</th>
             </tr>
 
-                  <% for(let i=0; i < questions.length; i++) { %>
-
-
-                    <% if(questions[i].isVerified){ %>
+                  <% for(let i=0; i < verifiedQuestions.length; i++) { %>
                       <tr>
                         <td><%= i+1 %></td>
-                        <td><%= questions[i].question %></td>
-                        <td><%= questions[i].answer %></td>
+                        <td><%= verifiedQuestions[i].question %></td>
+                        <td><%= verifiedQuestions[i].answer %></td>
                         <td> 
-                           <% if(questions[i].isVerified){ %>
-                                <form method="POST" action="/question/verify/<%= subject %>/<%=questions[i]._id%>">
-                                   <span style="color: green;">&#9989;</span> &nbsp;
-                                   &nbsp; &nbsp; 
-                                   <button type="submit" formmethod="post" class="btn btn-primary">Mark Unverified</button> 
-                                </form>
-                             <% } else{ %>  
-                           <form method="POST" action="/question/verify/<%= subject %>/<%=questions[i]._id%>">
-                           <span style="color: red;">&#10060; </span>
-                           &nbsp; &nbsp;   &nbsp; <button type="submit" formmethod="post" class="btn btn-primary">Mark Verified</button> 
-                            </form>
-                            <% } %>
+                          <form method="POST" action="/question/verify/<%= subject %>/<%=questions[i]._id%>">
+                            <span style="color: green;">&#9989;</span> &nbsp;
+                            &nbsp; &nbsp; 
+                            <button type="submit" formmethod="post" class="btn btn-primary">Mark Unverified</button> 
+                         </form>
                        </td>
                         <td>
                             <a href="/question/edit/<%= subject %>/<%=questions[i]._id%>">Edit</a>
                         </td>
                       </tr>
-                    <% } else{ %>  
-                   <% } %>
-
                     
                   <% } %>
           </table>
@@ -240,33 +227,21 @@
               <th>Verified</th>
               <th>Edit</th>
             </tr>
-                  <% for(let i=0; i < questions.length; i++) { %>
-
-                    <% if(!questions[i].isVerified){ %>
+                  <% for(let i=0; i < nonVerifiedQuestions.length; i++) { %>
                       <tr>
                         <td><%= i+1 %></td>
-                        <td><%= questions[i].question %></td>
-                        <td><%= questions[i].answer %></td>
+                        <td><%= nonVerifiedQuestions[i].question %></td>
+                        <td><%= nonVerifiedQuestions[i].answer %></td>
                         <td> 
-                           <% if(questions[i].isVerified){ %>
-                                <form method="POST" action="/question/verify/<%= subject %>/<%=questions[i]._id%>">
-                                   <span style="color: green;">&#9989;</span> &nbsp;
-                                   &nbsp; &nbsp; 
-                                   <button type="submit" formmethod="post" class="btn btn-primary">Mark Unverified</button> 
-                                </form>
-                             <% } else{ %>  
-                           <form method="POST" action="/question/verify/<%= subject %>/<%=questions[i]._id%>">
-                           <span style="color: red;">&#10060; </span>
-                           &nbsp; &nbsp;   &nbsp; <button type="submit" formmethod="post" class="btn btn-primary">Mark Verified</button> 
-                            </form>
-                            <% } %>
+                          <form method="POST" action="/question/verify/<%= subject %>/<%=questions[i]._id%>">
+                            <span style="color: red;">&#10060; </span>
+                            &nbsp; &nbsp;   &nbsp; <button type="submit" formmethod="post" class="btn btn-primary">Mark Verified</button> 
+                             </form>
                        </td>
                         <td>
                             <a href="/question/edit/<%= subject %>/<%=questions[i]._id%>">Edit</a>
                         </td>
                       </tr>
-                    <% } else{ %>  
-                   <% } %>
                   <% } %>
           </table>
         </div>

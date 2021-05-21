@@ -44,8 +44,16 @@ exports.getQuestionBySubject = async (req, res) => {
     const subj = req.query.subject;
     const Model = subjectList[subj];
     const questions = await mongoose.model(Model).find();
+    const verifiedQuestions = questions.filter(
+      (question) => question.isVerified === true
+    );
+    const nonVerifiedQuestions = questions.filter(
+      (question) => question.isVerified === false
+    );
     res.render('adminAllQuestions', {
       questions,
+      verifiedQuestions,
+      nonVerifiedQuestions,
       subject: subj,
     });
   } catch (err) {
@@ -104,8 +112,16 @@ exports.updateQuestion = async (req, res) => {
       .model(Model)
       .findByIdAndUpdate(req.params.questionId, req.body);
     const questions = await mongoose.model(Model).find();
+    const verifiedQuestions = questions.filter(
+      (question) => question.isVerified === true
+    );
+    const nonVerifiedQuestions = questions.filter(
+      (question) => question.isVerified === false
+    );
     res.render('adminAllQuestions', {
       questions,
+      verifiedQuestions,
+      nonVerifiedQuestions,
       subject: subj,
     });
   } catch (err) {
@@ -131,8 +147,16 @@ exports.changeVerificationStatus = async (req, res) => {
       await question.save();
     }
     const questions = await mongoose.model(Model).find();
+    const verifiedQuestions = questions.filter(
+      (question) => question.isVerified === true
+    );
+    const nonVerifiedQuestions = questions.filter(
+      (question) => question.isVerified === false
+    );
     res.render('adminAllQuestions', {
       questions,
+      verifiedQuestions,
+      nonVerifiedQuestions,
       subject: subj,
     });
   } catch (err) {
