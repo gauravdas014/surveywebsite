@@ -95,14 +95,60 @@
     <form method="POST" action="/question">
       <div class="form-group">
         <label for="exampleFormControlSelect1">Select Subject</label>
-        <select name="subject" class="form-control" id="exampleFormControlSelect1">
-          <option value="algo">Algorithms</option>
-          <option value="cd">Compiler Design</option>
-          <option value="cn">Computer Networks</option>
-          <option value="dbms">DBMS</option>
-          <option value="ds">Data Structure</option>
-          <option value="os">Operating System</option>
-        </select>
+
+        <%= subject %>
+
+          <% if(subject){ %>
+            <select name="subject" class="form-control" id="exampleFormControlSelect1">
+              <option <% if(subject=="algo" ){ %>
+                selected
+                <% } else{ %>
+                  <% } %>
+                    value="algo">Algorithms
+              </option>
+              <option <% if(subject=="cd" ){ %>
+                selected
+                <% } else{ %>
+                  <% } %>
+                    value="cd">Compiler Design
+              </option>
+              <option <% if(subject=="cn" ){ %>
+                selected
+                <% } else{ %>
+                  <% } %>
+                    value="cn">Computer Networks
+              </option>
+              <option <% if(subject=="dbms" ){ %>
+                selected
+                <% } else{ %>
+                  <% } %>
+                    value="dbms">DBMS
+              </option>
+              <option <% if(subject=="ds" ){ %>
+                selected
+                <% } else{ %>
+                  <% } %>
+                    value="ds">Data Structure
+              </option>
+              <option <% if(subject=="os" ){ %>
+                selected
+                <% } else{ %>
+                  <% } %>
+                    value="os">Operating System
+              </option>
+            </select>
+            <% } else{ %>
+              <select name="subject" class="form-control" id="exampleFormControlSelect1">
+                <option value="algo">Algorithms</option>
+                <option value="cd">Compiler Design</option>
+                <option value="cn">Computer Networks</option>
+                <option value="dbms">DBMS</option>
+                <option value="ds">Data Structure</option>
+                <option value="os">Operating System</option>
+              </select>
+              <% } %>
+
+
       </div>
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Enter Question</label>

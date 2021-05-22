@@ -16,7 +16,7 @@ router.get('/signup', (req, res) => {
 
 router.get('/user/dashboard', authController.isLoggedIn, (req, res) => {
   const user = req.user;
-  res.render('userDashboard', { user , flashMessages: { message: req.flash('message') }, });
+  res.render('userDashboard', { user , subject: "", flashMessages: { message: req.flash('message') }, });
 });
 
 router.get('/admin/dashboard', authController.isLoggedIn, (req, res) => {

@@ -39,6 +39,20 @@ const { subjectList } = require('../utils/subjects');
 //   }
 // };
 
+exports.dashboardWithASelectedSub = async (req, res) => {
+  try {
+    const subj = req.params.subject;
+    const user = req.user;
+    req.flash("message", "")
+    res.render("userDashboard", {user, subject: subj ,flashMessages: { message: req.flash('message') }})
+  } catch (err){
+    res.status(400).json({
+      status: 'fail',
+      message: err
+    })
+  }
+}
+
 exports.getQuestionBySubject = async (req, res) => {
   try {
     const subj = req.query.subject;
@@ -78,7 +92,7 @@ exports.addQuestion = async (req, res) => {
       answer: req.body.answer,
       user: currentUser._id,
     });
-    res.render('userQuestionSubmitted');
+    res.render('userQuestionSubmitted', {subject: subj});
   } catch (err) {
     console.log(err);
     res.status(400).json({

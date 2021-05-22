@@ -26,6 +26,7 @@ router
   .route('/verify/:subject/:questionId')
   .post(authController.isLoggedIn, questionController.changeVerificationStatus);
 
+
 router
   .route('/all/:userId')
   .get(authController.isLoggedIn, questionController.getAllQuestionByUser);
