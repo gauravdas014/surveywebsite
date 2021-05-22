@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  res.render('index');
+  res.render('index', {flashMessages: { message: req.flash('message') }});
 });
 
 router.get('/signup', (req, res) => {
