@@ -155,7 +155,7 @@
                         <th>#</th>
                         <th>Question</th>
                         <th>Answer</th>
-                        <th>Verified</th>
+                        <th>Verified(T/F)</th>
                       </tr>
                       <% for(let i=0; i < questions.length; i++) { %>
                         <tr>
@@ -168,11 +168,13 @@
                           <td>
                             <%= questions[i].answer %>
                           </td>
-                          <td>
+                          <td style="text-align: center;">
                             <% if(questions[i].isVerified){ %>
-                                <span style="color: green;">&#9989;</span>
+                                <!-- <span style="color: green;">&#9989;</span> -->
+                                T
                               <% } else{ %>
-                                <span style="color: red;">&#10060; </span>
+                                <!-- <span style="color: red;">&#10060; </span> -->
+                                F
                                 <% } %>
                           </td>
                         </tr>
