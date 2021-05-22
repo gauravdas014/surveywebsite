@@ -221,14 +221,14 @@
                             <%= verifiedQuestions[i].answer %>
                           </td>
                           <td>
-                            <form method="POST" action="/question/verify/<%= subject %>/<%=questions[i]._id%>">
+                            <form method="POST" action="/question/verify/<%= subject %>/<%=verifiedQuestions[i]._id%>">
                               <span style="color: green;">&#9989;</span> &nbsp;
                               &nbsp; &nbsp;
                               <button type="submit" formmethod="post" class="btn btn-primary">Mark Unverified</button>
                             </form>
                           </td>
                           <td>
-                            <a href="/question/edit/<%= subject %>/<%=questions[i]._id%>">Edit</a>
+                            <a href="/question/edit/<%= subject %>/<%=verifiedQuestions[i]._id%>">Edit</a>
                           </td>
                         </tr>
 
@@ -257,14 +257,15 @@
                             <%= nonVerifiedQuestions[i].answer %>
                           </td>
                           <td>
-                            <form method="POST" action="/question/verify/<%= subject %>/<%=questions[i]._id%>">
+                            <form method="POST"
+                              action="/question/verify/<%= subject %>/<%=nonVerifiedQuestions[i]._id%>">
                               <span style="color: red;">&#10060; </span>
                               &nbsp; &nbsp; &nbsp; <button type="submit" formmethod="post" class="btn btn-primary">Mark
                                 Verified</button>
                             </form>
                           </td>
                           <td>
-                            <a href="/question/edit/<%= subject %>/<%=questions[i]._id%>">Edit</a>
+                            <a href="/question/edit/<%= subject %>/<%=nonVerifiedQuestions[i]._id%>">Edit</a>
                           </td>
                         </tr>
                         <% } %>

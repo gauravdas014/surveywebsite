@@ -156,23 +156,49 @@ exports.changeVerificationStatus = async (req, res) => {
     if (question.isVerified) {
       question.isVerified = false;
       await question.save();
+      const questions = await mongoose.model(Model).find();
+      const verifiedQuestions = questions.filter(
+        (question) => question.isVerified === true
+      );
+      const nonVerifiedQuestions = questions.filter(
+        (question) => question.isVerified === false
+      );
+      return res.render('adminAllQuestions', {
+        questions,
+        verifiedQuestions,
+        nonVerifiedQuestions,
+        subject: subj,
+      });
     } else {
       question.isVerified = true;
       await question.save();
+      const questions = await mongoose.model(Model).find();
+      const verifiedQuestions = questions.filter(
+        (question) => question.isVerified === true
+      );
+      const nonVerifiedQuestions = questions.filter(
+        (question) => question.isVerified === false
+      );
+      return res.render('adminAllQuestions', {
+        questions,
+        verifiedQuestions,
+        nonVerifiedQuestions,
+        subject: subj,
+      });
     }
-    const questions = await mongoose.model(Model).find();
-    const verifiedQuestions = questions.filter(
-      (question) => question.isVerified === true
-    );
-    const nonVerifiedQuestions = questions.filter(
-      (question) => question.isVerified === false
-    );
-    res.render('adminAllQuestions', {
-      questions,
-      verifiedQuestions,
-      nonVerifiedQuestions,
-      subject: subj,
-    });
+    // const questions = await mongoose.model(Model).find();
+    // const verifiedQuestions = questions.filter(
+    //   (question) => question.isVerified === true
+    // );
+    // const nonVerifiedQuestions = questions.filter(
+    //   (question) => question.isVerified === false
+    // );
+    // res.render('adminAllQuestions', {
+    //   questions,
+    //   verifiedQuestions,
+    //   nonVerifiedQuestions,
+    //   subject: subj,
+    // });
   } catch (err) {
     console.log(err);
     res.status(400).json({
