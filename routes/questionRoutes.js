@@ -26,9 +26,12 @@ router
   .route('/verify/:subject/:questionId')
   .post(authController.isLoggedIn, questionController.changeVerificationStatus);
 
-
 router
   .route('/all/:userId')
   .get(authController.isLoggedIn, questionController.getAllQuestionByUser);
+
+router
+  .route('/pdf/:subject')
+  .get(authController.isLoggedIn, questionController.printQuestions);
 
 module.exports = router;

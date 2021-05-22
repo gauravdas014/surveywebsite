@@ -9,6 +9,44 @@ const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const { subjectList } = require('../utils/subjects');
+const pdf = require('html-pdf');
+const ejs = require('ejs');
+const path = require('path');
+
+exports.printQuestions = async (req, res) => {
+  const subj = req.params.subject;
+  const Model = subjectList[subj];
+  const questions = await mongoose
+    .model(Model)
+    .find()
+    .sort({ isVerified: false });
+  ejs
+    .renderFile(path.resolve(__dirname + '/../views/adminAllQPrint.ejs'), {
+      subject: subj,
+      questions,
+    })
+    .then((data) => {
+      const options = {
+        format: 'Landscape',
+        height: '20in',
+        width: '20in',
+      };
+      const file = path.resolve(__dirname + `../questions.pdf`);
+      pdf.create(data, options).toFile(file, (err, success) => {
+        if (err) throw err;
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader(
+          'Content-Disposition',
+          'attachment; filename=questions.pdf'
+        );
+        return res.download(file);
+      });
+    })
+    .catch((message) => {
+      console.log(message);
+      return res.json({ success: false, msg: message });
+    });
+};
 
 // exports.getAllQuestions = async (req, res) => {
 //   try {
@@ -43,15 +81,19 @@ exports.dashboardWithASelectedSub = async (req, res) => {
   try {
     const subj = req.params.subject;
     const user = req.user;
-    req.flash("message", "")
-    res.render("userDashboard", {user, subject: subj ,flashMessages: { message: req.flash('message') }})
-  } catch (err){
+    req.flash('message', '');
+    res.render('userDashboard', {
+      user,
+      subject: subj,
+      flashMessages: { message: req.flash('message') },
+    });
+  } catch (err) {
     res.status(400).json({
       status: 'fail',
-      message: err
-    })
+      message: err,
+    });
   }
-}
+};
 
 exports.getQuestionBySubject = async (req, res) => {
   try {
@@ -92,7 +134,7 @@ exports.addQuestion = async (req, res) => {
       answer: req.body.answer,
       user: currentUser._id,
     });
-    res.render('userQuestionSubmitted', {subject: subj});
+    res.render('userQuestionSubmitted', { subject: subj });
   } catch (err) {
     console.log(err);
     res.status(400).json({
