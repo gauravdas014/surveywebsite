@@ -95,6 +95,24 @@ exports.dashboardWithASelectedSub = async (req, res) => {
   }
 };
 
+exports.dashboardAdminWithASelectedSub = async (req, res) => {
+  try {
+    const subj = req.params.subject;
+    const user = req.user;
+    req.flash('message', '');
+    res.render('adminDashboard', {
+      user,
+      subject: subj,
+      flashMessages: { message: req.flash('message') },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
 exports.getQuestionBySubject = async (req, res) => {
   try {
     const subj = req.query.subject;
@@ -250,24 +268,38 @@ exports.changeVerificationStatus = async (req, res) => {
   }
 };
 
-exports.getAllQuestionByUser = async (req, res) => {
+exports.getSubjectWiseQuestionByUser = async (req, res) => {
   try {
-    const algoQs = await Algo.find({ user: req.params.userId });
-    const CdQs = await Cd.find({ user: req.params.userId });
-    const CnQs = await Cn.find({ user: req.params.userId });
-    const DbmsQs = await Dbms.find({ user: req.params.userId });
-    const DsQs = await Ds.find({ user: req.params.userId });
-    const OsQs = await Os.find({ user: req.params.userId });
+    // const algoQs = await Algo.find({ user: req.params.userId });
+    // const CdQs = await Cd.find({ user: req.params.userId });
+    // const CnQs = await Cn.find({ user: req.params.userId });
+    // const DbmsQs = await Dbms.find({ user: req.params.userId });
+    // const DsQs = await Ds.find({ user: req.params.userId });
+    // const OsQs = await Os.find({ user: req.params.userId });
 
-    const allQuestions = {
-      algoQs,
-      CdQs,
-      CnQs,
-      DbmsQs,
-      DsQs,
-      OsQs,
-    };
-    res.render('allQuestionsByUser', { allQuestions });
+    // const allQuestions = {
+    //   algoQs,
+    //   CdQs,
+    //   CnQs,
+    //   DbmsQs,
+    //   DsQs,
+    //   OsQs,
+    // };
+    // res.render('allQuestionsByUser', { allQuestions });
+
+    const subj = req.query.subject;
+    const Model = subjectList[subj];
+    const questions = await mongoose.model(Model).find();
+    // const verifiedQuestions = questions.filter(
+    //   (question) => question.isVerified === true
+    // );
+    // const nonVerifiedQuestions = questions.filter(
+    //   (question) => question.isVerified === false
+    // );
+    res.render('allQuestionsByUser', {
+      questions,
+      subject: subj,
+    });
   } catch (err) {
     res.status(400).json({
       status: 'fail',

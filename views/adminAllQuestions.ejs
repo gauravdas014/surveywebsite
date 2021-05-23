@@ -119,7 +119,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="/admin/dashboard">Home</a>
+    <a class="navbar-brand" href="/admin/dashboard/<%= subject %>">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -128,7 +128,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
       </ul>
-      <button type="button" onclick="location.href='/question/pdf/<%= subject %>';" class="btn btn-warning">Download PDF</button> &nbsp; &nbsp; &nbsp;
+      <button type="button" onclick="location.href='/question/pdf/<%= subject %>';" class="btn btn-warning">Download
+        PDF</button> &nbsp; &nbsp; &nbsp;
       <button type="button" onclick="location.href='/user/signout';" class="btn btn-warning">Sign Out</button>
     </div>
   </nav>

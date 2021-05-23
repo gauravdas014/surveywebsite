@@ -8,6 +8,7 @@ dotenv.config({ path: './config.env' });
 const morgan = require('morgan');
 
 const userRouter = require('./routes/userRoutes');
+const adminRouter= require("./routes/adminRoutes")
 const viewRouter = require('./routes/viewRoutes');
 const questionRouter = require('./routes/questionRoutes');
 
@@ -35,6 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', viewRouter);
 app.use('/user', userRouter);
+app.use("/admin", adminRouter)
 app.use('/question', questionRouter);
 
 module.exports = app;

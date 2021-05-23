@@ -17,22 +17,30 @@ const createSendToken = async (user, req, res) => {
     ),
   });
   if (user.role === 'user') {
-    req.flash('message', 'Logged in sucessfully')
+    req.flash('message', 'Logged in sucessfully');
     res.redirect('/user/dashboard');
   } else {
+    req.flash('message', 'Logged in sucessfully');
     res.redirect('/admin/dashboard');
   }
 };
 
 exports.signup = async (req, res) => {
   try {
-    // const user = await User.findOne({ email: req.body.email });
-    // if (user) {
-    //   return res.status(400).json({
-    //     status: 'fail',
-    //     message: 'User already registered',
-    //   });
-    // }
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      req.flash(
+        'message',
+        'There exists a user with the entered email ID, Please use another email'
+      );
+      return res.redirect('/signup');
+    }
+
+    if (req.body.password !== req.body.passwordConfirm) {
+      req.flash('message', 'Passwords must match');
+      return res.redirect('/signup');
+    }
+
     const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
@@ -51,7 +59,7 @@ exports.signup = async (req, res) => {
         Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
       ),
     });
-    req.flash('message', 'Successfully signed up')
+    req.flash('message', 'Successfully signed up');
     res.redirect('/login');
   } catch (err) {
     res.status(400).json({
@@ -68,8 +76,10 @@ exports.signin = async (req, res) => {
       !user ||
       !(await user.correctPassword(req.body.password, user.password))
     ) {
-      req.flash("message", "Wrong username or password")
-      return res.render('index', {flashMessages: { message: req.flash('message') }});
+      req.flash('message', 'Wrong username or password');
+      return res.render('index', {
+        flashMessages: { message: req.flash('message') },
+      });
     }
     createSendToken(user, req, res);
   } catch (err) {
@@ -103,7 +113,7 @@ exports.isLoggedIn = async (req, res, next) => {
 exports.signout = async (req, res) => {
   try {
     res.clearCookie('jwt');
-    req.flash("message", "");
+    req.flash('message', '');
     res.redirect('/');
   } catch (err) {
     res.status(400).json({

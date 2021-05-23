@@ -28,7 +28,10 @@ router
 
 router
   .route('/all/:userId')
-  .get(authController.isLoggedIn, questionController.getAllQuestionByUser);
+  .get(
+    authController.isLoggedIn,
+    questionController.getSubjectWiseQuestionByUser
+  );
 
 router
   .route('/pdf/:subject')

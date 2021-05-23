@@ -9,8 +9,12 @@ const userSchema = new mongoose.Schema(
     age: {
       type: String,
     },
+    phone: {
+      type: String,
+    },
     email: {
       type: String,
+      unique: true,
     },
     password: {
       type: String,
