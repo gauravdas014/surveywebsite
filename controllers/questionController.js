@@ -289,7 +289,9 @@ exports.getSubjectWiseQuestionByUser = async (req, res) => {
 
     const subj = req.query.subject;
     const Model = subjectList[subj];
-    const questions = await mongoose.model(Model).find();
+    const questions = await mongoose
+      .model(Model)
+      .find({ user: req.params.userId });
     // const verifiedQuestions = questions.filter(
     //   (question) => question.isVerified === true
     // );
