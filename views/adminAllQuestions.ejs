@@ -166,6 +166,9 @@
                         <th>Answer</th>
                         <th>Verified</th>
                         <th>Edit</th>
+                        <th>UserId</th>
+                        <th>Posted At</th>
+
                       </tr>
                       <% for(let i=0; i < questions.length; i++) { %>
                         <tr>
@@ -196,6 +199,12 @@
                           <td>
                             <a href="/question/edit/<%= subject %>/<%=questions[i]._id%>">Edit</a>
                           </td>
+                          <td>
+                            <%= questions[i].user %>
+                          </td>
+                          <td>
+                            <%= questions[i].createdAt %>
+                          </td>
                         </tr>
                         <% } %>
                     </table>
@@ -209,6 +218,8 @@
                         <th>Answer</th>
                         <th>Verified</th>
                         <th>Edit</th>
+                        <th>UserId</th>
+                        <th>Posted At</th>
                       </tr>
 
                       <% for(let i=0; i < verifiedQuestions.length; i++) { %>
@@ -232,6 +243,12 @@
                           <td>
                             <a href="/question/edit/<%= subject %>/<%=verifiedQuestions[i]._id%>">Edit</a>
                           </td>
+                          <td>
+                            <%= verifiedQuestions[i].user %>
+                          </td>
+                          <td>
+                            <%= verifiedQuestions[i].createdAt %>
+                          </td>
                         </tr>
 
                         <% } %>
@@ -246,6 +263,8 @@
                         <th>Answer</th>
                         <th>Verified</th>
                         <th>Edit</th>
+                        <th>UserId</th>
+                        <th>Posted At</th>
                       </tr>
                       <% for(let i=0; i < nonVerifiedQuestions.length; i++) { %>
                         <tr>
@@ -268,6 +287,12 @@
                           </td>
                           <td>
                             <a href="/question/edit/<%= subject %>/<%=nonVerifiedQuestions[i]._id%>">Edit</a>
+                          </td>
+                          <td>
+                            <%= nonVerifiedQuestions[i].user %>
+                          </td>
+                          <td>
+                            <%= nonVerifiedQuestions[i].createdAt %>
                           </td>
                         </tr>
                         <% } %>
